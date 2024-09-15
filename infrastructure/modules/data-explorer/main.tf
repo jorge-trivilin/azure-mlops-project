@@ -5,13 +5,19 @@ resource "azurerm_kusto_cluster" "cluster" {
   location            = var.location
   resource_group_name = var.rg_name
   streaming_ingestion_enabled = true
-  language_extensions = ["PYTHON"]
+
+  # Correção aqui: Substituir por um bloco de linguagem
+  language_extensions {
+    name = "PYTHON"
+  }
+
   count               = var.enable_monitoring ? 1 : 0
 
   sku {
     name     = "Standard_D11_v2"
     capacity = 2
   }
+
   tags = var.tags
 }
 
