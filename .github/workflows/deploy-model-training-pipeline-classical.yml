@@ -7,6 +7,7 @@ on:
       
 jobs:
   set-env-branch:
+    if: contains(github.event.head_commit.message, '-training')
     runs-on: ubuntu-latest
     outputs:
       config-file: ${{ steps.set-output-defaults.outputs.config-file }}
