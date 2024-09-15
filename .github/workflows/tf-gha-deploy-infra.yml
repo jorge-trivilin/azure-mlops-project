@@ -1,12 +1,13 @@
 name: tf-gha-deploy-infra.yml
 
 on:
-  #push:
-  workflow_dispatch:
-env:
-  config_env: "none"
+  push:
+    branches:
+      - '**'
+
 jobs:
   set-env-branch:
+    if: contains(github.event.head_commit.message, '-terraform')
     runs-on: ubuntu-latest
     outputs:
       config-file: ${{ steps.set-output-defaults.outputs.config-file }}
