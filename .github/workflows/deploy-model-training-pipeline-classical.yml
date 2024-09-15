@@ -53,11 +53,11 @@ jobs:
     needs: [get-config]
     uses: jorge-trivilin/mlops-templates/.github/workflows/create-compute.yml@main
     with:
-      cluster_name: cpu-cluster
+      cluster_name: cpu-cluster-2
       size: Standard_DS3_v2
       min_instances: 0
       max_instances: 1
-      cluster_tier: low_priority
+      cluster_tier: dedicated
       resource_group: ${{ needs.get-config.outputs.resource_group }}
       workspace_name: ${{ needs.get-config.outputs.aml_workspace }}
     secrets:
