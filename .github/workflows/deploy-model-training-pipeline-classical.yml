@@ -1,7 +1,10 @@
 name: deploy-model-training-pipeline
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - '**'
+      
 jobs:
   set-env-branch:
     runs-on: ubuntu-latest
