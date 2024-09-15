@@ -13,6 +13,9 @@ resource "azurerm_kusto_cluster" "cluster" {
 
   count               = var.enable_monitoring ? 1 : 0
 
+  # Adicione o argumento de imagem obrigatório
+  image = "2022-03-01"  # Exemplo de valor, certifique-se de usar uma versão suportada ou apropriada
+
   sku {
     name     = "Standard_D11_v2"
     capacity = 2
