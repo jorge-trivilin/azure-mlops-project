@@ -3,7 +3,7 @@ channels:
  - anaconda
  - conda-forge
 dependencies:
- - python=3.7.5
+ - python=3.8.0
  - pip
  - pip:
    - azureml-mlflow==1.53.0
@@ -15,6 +15,7 @@ dependencies:
    - matplotlib==3.5.3
    - numpy==1.21.6
    - scipy==1.7.3
+   - azureml-inference-server-http
    # Substitua estas linhas pelas versões específicas dos pacotes, se disponíveis
    - git+https://github.com/microsoft/AzureML-Observability#subdirectory=aml-obs-client
    - git+https://github.com/microsoft/AzureML-Observability#subdirectory=aml-obs-collector
