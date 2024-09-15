@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.77.0"  # Mantive a versão que você estava usando
+      version = "~> 4.2.0"  # Mantive a versão que você estava usando
     }
   }
   backend "azurerm" {}  # Mantive o backend que você estava usando
