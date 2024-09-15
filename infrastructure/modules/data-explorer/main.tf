@@ -6,15 +6,13 @@ resource "azurerm_kusto_cluster" "cluster" {
   resource_group_name = var.rg_name
   streaming_ingestion_enabled = true
 
-  # Correção aqui: Substituir por um bloco de linguagem
+  # Correção: Definindo language_extensions como bloco
   language_extensions {
-    name = "PYTHON"
+    name  = "PYTHON"           # Definindo a extensão de linguagem
+    image = "Python3_10_8"      # Definindo a imagem para a extensão (use "Python3_10_8" se suportado)
   }
 
-  count               = var.enable_monitoring ? 1 : 0
-
-  # Adicione o argumento de imagem obrigatório
-  image = "2022-03-01"  # Exemplo de valor, certifique-se de usar uma versão suportada ou apropriada
+  count = var.enable_monitoring ? 1 : 0
 
   sku {
     name     = "Standard_D11_v2"
