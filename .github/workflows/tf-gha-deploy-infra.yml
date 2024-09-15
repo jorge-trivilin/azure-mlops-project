@@ -1,15 +1,12 @@
 name: tf-gha-deploy-infra.yml
 
 on:
-  push:
-    branches:
-      - '**'
-      
+  #push:
+  workflow_dispatch:
 env:
   config_env: "none"
 jobs:
   set-env-branch:
-    if: contains(github.event.head_commit.message, '-terraform')
     runs-on: ubuntu-latest
     outputs:
       config-file: ${{ steps.set-output-defaults.outputs.config-file }}
@@ -28,14 +25,12 @@ jobs:
           echo "config-file=$config_env" >> $GITHUB_OUTPUT;
   get-config:
     needs: set-env-branch
-    uses: ./read-yaml.yml  # Apontando para o arquivo local na raiz do projeto
+    uses: ./read-yaml.yml 
     with:
-      file_name: ${{ needs.set-env-branch.outputs.config-file }}
-
+      file_name: ${{ needs.set-env-branch.outputs.config-file}}
   test-terraform-state-deployment:
     needs: [get-config, set-env-branch]
-    uses: ./tf-gha-install-terraform.yml  # Apontando para o arquivo local na raiz do projeto
-
+    uses: ./tf-gha-install-terraform.yml
     with:
       TFAction: "apply"
       dply_environment: ${{ needs.set-env-branch.outputs.config-file }}
