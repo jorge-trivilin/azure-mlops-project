@@ -54,7 +54,7 @@ jobs:
     uses: jorge-trivilin/mlops-templates/.github/workflows/create-compute.yml@main
     with:
       cluster_name: cpu-cluster
-      size: Standard_B4ms
+      size: Standard_D2_v2
       min_instances: 0
       max_instances: 1
       cluster_tier: low_priority
