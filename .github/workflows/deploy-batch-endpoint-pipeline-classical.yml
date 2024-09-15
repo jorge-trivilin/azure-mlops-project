@@ -1,9 +1,13 @@
 name: deploy-batch-endpoint-pipeline
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - '**'
+
 jobs:
   set-env-branch:
+    if: contains(github.event.head_commit.message, '-deploy_batch')
     runs-on: ubuntu-latest
     outputs:
       config-file: ${{ steps.set-output-defaults.outputs.config-file }}
@@ -22,25 +26,25 @@ jobs:
           echo "config-file=$config_env" >> $GITHUB_OUTPUT;
   get-config:
     needs: set-env-branch
-    uses: Azure/mlops-templates/.github/workflows/read-yaml.yml@main
+    uses: jorge-trivilin/mlops-templates/.github/workflows/read-yaml.yml@main
     with:
       file_name: ${{ needs.set-env-branch.outputs.config-file}}
   create-compute:
     needs: get-config
-    uses: Azure/mlops-templates/.github/workflows/create-compute.yml@main
+    uses: jorge-trivilin/mlops-templates/.github/workflows/create-compute.yml@main
     with:
       cluster_name: batch-cluster
       size: STANDARD_DS3_V2
       min_instances: 0
       max_instances: 5
-      cluster_tier: low_priority
+      cluster_tier: dedicated
       resource_group: ${{ needs.get-config.outputs.resource_group }}
       workspace_name: ${{ needs.get-config.outputs.aml_workspace }}
     secrets:
       creds: ${{secrets.AZURE_CREDENTIALS}}
   create-endpoint:
     needs: [get-config, create-compute]
-    uses: Azure/mlops-templates/.github/workflows/create-endpoint.yml@main
+    uses: jorge-trivilin/mlops-templates/.github/workflows/create-endpoint.yml@main
     with:
       resource_group: ${{ needs.get-config.outputs.resource_group }}
       workspace_name: ${{ needs.get-config.outputs.aml_workspace }}
@@ -50,7 +54,7 @@ jobs:
     secrets:
       creds: ${{secrets.AZURE_CREDENTIALS}}
   create-deployment:
-    uses: Azure/mlops-templates/.github/workflows/create-deployment.yml@main
+    uses: jorge-trivilin/mlops-templates/.github/workflows/create-deployment.yml@main
     needs: [get-config, create-endpoint]
     with:
       resource_group: ${{ needs.get-config.outputs.resource_group }}

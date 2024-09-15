@@ -16,5 +16,5 @@ dependencies:
    - numpy==1.21.6
    - scipy==1.7.3
    # Substitua estas linhas pelas versões específicas dos pacotes, se disponíveis
-   # - git+https://github.com/microsoft/AzureML-Observability#subdirectory=aml-obs-client
-   # - git+https://github.com/microsoft/AzureML-Observability#subdirectory=aml-obs-collector
+   - git+https://github.com/microsoft/AzureML-Observability#subdirectory=aml-obs-client
+   - git+https://github.com/microsoft/AzureML-Observability#subdirectory=aml-obs-collector
