@@ -1,3 +1,4 @@
+# storage-account/output.tf
 output "id" {
   value = azurerm_storage_account.st.id
 }
